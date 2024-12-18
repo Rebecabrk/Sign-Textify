@@ -80,7 +80,7 @@ class StatsGenerator:
                     f.write(f'### Label: {label}\n')
                     f.write(f'- Original train data: {original_train_data[label]}\n')
                     f.write(f'- Preprocessed train data: {preprocessed_train_data[label]}\n')
-                    f.write(f'- Number of missing preprocessed train data: {stats_number['missing_preprocessed_train']}\n')
+                    f.write(f'- Number of missing preprocessed train data for this label: {original_train_data[label] - preprocessed_train_data[label]}\n')
                     f.write(f'- Percentage of preprocessed train data: {preprocessed_train_data[label] / original_train_data[label] * 100:.2f}%\n\n')
 
 
