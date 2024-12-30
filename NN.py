@@ -87,8 +87,10 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 train_accuracies = []
 test_accuracies = []
 
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5)
+
 # Training loop
-epochs = 10
+epochs = 50
 for epoch in range(epochs):
     model.train()
     running_loss = 0.0
@@ -111,6 +113,7 @@ for epoch in range(epochs):
     accuracy = 100 * correct / total
     train_accuracies.append(accuracy)
     print(f"Epoch {epoch + 1}/{epochs}, Loss: {running_loss / len(train_loader):.4f}, Accuracy: {accuracy:.4f}%")
+    scheduler.step(running_loss)
 
 # Print final training accuracy
 print(f"Final Training Accuracy: {accuracy:.4f}%")
