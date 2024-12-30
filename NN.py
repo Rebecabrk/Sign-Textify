@@ -4,6 +4,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
 import torch.optim as optim
+import matplotlib.pyplot as plt
 
 labels_to_index = {}
 
@@ -83,6 +84,9 @@ model = HandGestureNet(input_size, num_classes)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+train_accuracies = []
+test_accuracies = []
+
 # Training loop
 epochs = 10
 for epoch in range(epochs):
@@ -105,6 +109,7 @@ for epoch in range(epochs):
         correct += (predicted == labels).sum().item()
 
     accuracy = 100 * correct / total
+    train_accuracies.append(accuracy)
     print(f"Epoch {epoch + 1}/{epochs}, Loss: {running_loss / len(train_loader):.4f}, Accuracy: {accuracy:.4f}%")
 
 # Print final training accuracy
@@ -122,5 +127,15 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
 
 test_accuracy = 100 * correct / total
+test_accuracies.append(test_accuracy)
 print(f"Test Accuracy: {test_accuracy:.4f}%")
 
+# Plot the training accuracies
+plt.figure(figsize=(10, 5))
+plt.plot(range(1, epochs + 1), train_accuracies, label='Train Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy (%)')
+plt.title('Training Accuracy')
+plt.legend()
+plt.grid(True)
+plt.show()
