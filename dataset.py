@@ -6,7 +6,7 @@ import numpy as np
 
 def labels_to_index(labels):
     unique_labels = sorted(set(labels))
-    labels_to_index = {label: idx for idx, label in enumerate(unique_labels)}
+    labels_to_index = {idx: label for idx, label in enumerate(unique_labels)}
     with open("labels_to_index.json", "w") as f:
         json.dump(labels_to_index, f, indent=4)
 
@@ -27,11 +27,11 @@ def process_directory(directory):
                     labels.append(label)
     return samples, labels
 
-def create_hdf5_dataset(train_dir, test_dir, output_file, labels_to_index=False):
+def create_hdf5_dataset(train_dir, test_dir, output_file, label_to_index=False):
     train_samples, train_labels = process_directory(train_dir)
     test_samples, test_labels = process_directory(test_dir)
 
-    if labels_to_index:
+    if label_to_index:
         labels_to_index(train_labels)
 
     with h5py.File(output_file, 'w') as f:
