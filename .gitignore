@@ -1,0 +1,18 @@
+# Build folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+.vs/
+
+# NuGet packages
+# packages/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# IDE-specific folders
+.vscode/
