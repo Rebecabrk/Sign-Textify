@@ -47,6 +47,9 @@ class KinectClient
         catch (Exception ex)
         {
             Console.WriteLine("Error initializing or starting Kinect: " + ex.Message);
+            kinectSensor.Stop();
+            clientSocket.Close();
+            Environment.Exit(1);
         }
     }
 
@@ -59,6 +62,9 @@ class KinectClient
         catch (Exception ex)
         {
             Console.WriteLine("Error enabling color stream: " + ex.Message);
+            kinectSensor.Stop();
+            clientSocket.Close();
+            Environment.Exit(1);
         }
     }
 
@@ -72,6 +78,9 @@ class KinectClient
         catch (Exception ex)
         {
             Console.WriteLine("Error enabling depth stream: " + ex.Message);
+            kinectSensor.Stop();
+            clientSocket.Close();
+            Environment.Exit(1);
         }
     }
 
@@ -86,6 +95,8 @@ class KinectClient
         catch (Exception ex)
         {
             Console.WriteLine("Error connecting to server: " + ex.Message);
+            kinectSensor.Stop();
+            clientSocket.Close();
             Environment.Exit(1);
         }
     }
@@ -161,6 +172,9 @@ class KinectClient
         catch (Exception ex)
         {
             Console.WriteLine("Error sending frame: " + ex.Message);
+            kinectSensor.Stop();
+            clientSocket.Close();
+            Environment.Exit(1);
         }
     }
 }
